@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiLock, FiMail } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
@@ -10,14 +10,19 @@ import { Container, Content, Background } from './styles';
 import LogoImage from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { AuthContext } from '../../context/authContext';
+import { useAuth } from '../../hooks/authContext';
 
+interface signInDataForm {
+  email: string;
+  password: string;
+}
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { sigIn } = useContext(AuthContext);
-
+  const { sigIn, user, signOut } = useAuth();
+  // signOut();
+  console.log(user);
   const handleSubmitForm = useCallback(
-    async (data: Object) => {
+    async (data: signInDataForm) => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
@@ -26,7 +31,10 @@ const SignIn: React.FC = () => {
             .email('Digite um E-mail válido'),
           password: Yup.string().required('Senha obrigatório'),
         });
-        sigIn();
+        sigIn({
+          email: data.email,
+          password: data.password,
+        });
         await schema.validate(data, {
           abortEarly: false,
         });

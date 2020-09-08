@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './styles/Global';
 import Routes from './Routes';
-import { AuthProvide } from './context/authContext';
+import { AuthProvide } from './hooks/authContext';
 
 function App() {
   return (
