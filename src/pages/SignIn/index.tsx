@@ -5,12 +5,13 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 
-import getValidatorErros from '../../utils/getValidatorErros';
-import { Container, Content, Background } from './styles';
 import LogoImage from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useAuth } from '../../hooks/authContext';
+import { useToast } from '../../hooks/toastContext';
+import getValidatorErros from '../../utils/getValidatorErros';
+import { Container, Content, Background } from './styles';
 
 interface signInDataForm {
   email: string;
@@ -18,9 +19,8 @@ interface signInDataForm {
 }
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { sigIn, user, signOut } = useAuth();
-  // signOut();
-  console.log(user);
+  const { sigIn } = useAuth();
+  const { addToast } = useToast();
   const handleSubmitForm = useCallback(
     async (data: signInDataForm) => {
       try {
@@ -31,7 +31,7 @@ const SignIn: React.FC = () => {
             .email('Digite um E-mail válido'),
           password: Yup.string().required('Senha obrigatório'),
         });
-        sigIn({
+        await sigIn({
           email: data.email,
           password: data.password,
         });
@@ -39,11 +39,19 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
       } catch (err) {
-        const erros = getValidatorErros(err);
-        formRef.current?.setErrors(erros);
+        if (err instanceof Yup.ValidationError) {
+          const erros = getValidatorErros(err);
+          formRef.current?.setErrors(erros);
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          message: 'Ocorreu um erro ao faxer o login, cheque suas credenciasi.',
+        });
       }
     },
-    [sigIn],
+    [sigIn, addToast],
   );
 
   return (

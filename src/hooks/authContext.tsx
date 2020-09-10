@@ -19,7 +19,7 @@ interface UserSate {
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
-const AuthProvide: React.FC = ({ children }) => {
+const AuthProvider: React.FC = ({ children }) => {
   const [dataUser, setDataUser] = useState<UserSate>(() => {
     const token = localStorage.getItem('@gobarber.token');
     const user = localStorage.getItem('@gobarber.user');
@@ -33,7 +33,7 @@ const AuthProvide: React.FC = ({ children }) => {
     return {} as UserSate;
   });
 
-  const sigIn = useCallback(async ({ email, password }) => {
+  const sigIn = useCallback(async ({ email, password }: CredentialsProps) => {
     const { data } = await apiClient.post('login', {
       email,
       password,
@@ -70,4 +70,4 @@ function useAuth(): AuthContextProps {
   return context;
 }
 
-export { useAuth, AuthProvide };
+export { useAuth, AuthProvider };
