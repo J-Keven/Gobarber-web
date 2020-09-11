@@ -1,10 +1,9 @@
 import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiLock, FiMail } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
-
 import LogoImage from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -21,6 +20,8 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { sigIn } = useAuth();
   const { addToast } = useToast();
+  const history = useHistory();
+
   const handleSubmitForm = useCallback(
     async (data: signInDataForm) => {
       try {
@@ -31,13 +32,23 @@ const SignIn: React.FC = () => {
             .email('Digite um E-mail válido'),
           password: Yup.string().required('Senha obrigatório'),
         });
+
         await schema.validate(data, {
           abortEarly: false,
         });
+
         await sigIn({
           email: data.email,
           password: data.password,
         });
+
+        addToast({
+          type: 'success',
+          title: 'Logon Realizado',
+          // message: 'Ocorreu um erro ao fazer login, cheque suas credenciais.',
+        });
+
+        history.push('/deshboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const erros = getValidatorErros(err);
