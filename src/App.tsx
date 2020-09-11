@@ -6,14 +6,12 @@ import Providers from './hooks';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Providers>
-          <Routes />
-        </Providers>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Providers>
+        <Routes />
+      </Providers>
       <GlobalStyle />
-    </>
+    </BrowserRouter>
   );
 }
 
