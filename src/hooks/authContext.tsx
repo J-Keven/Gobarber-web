@@ -54,6 +54,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     setDataUser({} as UserSate);
   }, []);
+
   return (
     <AuthContext.Provider value={{ user: dataUser.user, sigIn, signOut }}>
       {children}

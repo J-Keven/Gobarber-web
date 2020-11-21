@@ -47,10 +47,10 @@ export const Container = styled.div<ContainerProps>`
   input {
     flex: 1;
     /* font-size: 16px; */
+    border-style: none;
     border: 0;
     background: transparent;
     color: #f4ede8;
-
     font-weight: normal;
     &::placeholder {
       color: #666360;
