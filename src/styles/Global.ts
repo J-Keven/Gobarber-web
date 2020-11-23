@@ -15,6 +15,7 @@ export default createGlobalStyle`
   }
 
   body, input, button {
+    border-style: none;
     font: 16px 'Roboto Slab', serif;
   }
 
