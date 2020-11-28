@@ -48,7 +48,7 @@ export const Profile = styled.div`
 `;
 
 export const ProfileContent = styled.div`
-  > text {
+  > p {
     font-family: 'Roboto Slab';
     font-weight: 400;
     font-size: 16px;

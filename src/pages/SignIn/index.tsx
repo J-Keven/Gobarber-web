@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
         }
       }
     },
-    [sigIn, addToast],
+    [sigIn, addToast, history],
   );
 
   return (

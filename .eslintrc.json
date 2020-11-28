@@ -37,6 +37,8 @@
     "import/prefer-default-export": "off",
     "camelcase": "off",
     "no-unused-expressions": "off",
+    "import/no-duplicates": "off",
+    "no-underscore-dangle": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
