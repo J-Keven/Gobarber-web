@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
           // message: 'Ocorreu um erro ao fazer login, cheque suas credenciais.',
         });
 
-        history.push('/deshboard');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const erros = getValidatorErros(err);

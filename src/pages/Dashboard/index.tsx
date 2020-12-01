@@ -3,6 +3,7 @@ import DayPicker, { DayModifiers } from 'react-day-picker';
 import { FiClock, FiPower } from 'react-icons/fi';
 import { isToday, format, parseISO, isAfter } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { Link } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
 import { useAuth } from '../../hooks/authContext';
 import Logo from '../../assets/logo.svg';
@@ -141,15 +142,14 @@ const Dashboard: React.FC = () => {
         <HeaderContent>
           <img src={Logo} alt="gobabber logo" />
           <Profile>
-            <img
-              src="https://avatars2.githubusercontent.com/u/50251304?s=460&u=f3ac62e5d926b4c8f2a8bc93e548ea7443ff5dbb&v=4"
-              alt="User Avatar"
-            />
+            <img src={user.avatar_url} alt={user.name} />
             <ProfileContent>
               <p>
                 Bem Vindo,
                 <br />
-                <strong>J-keven</strong>
+                <Link to="/profile">
+                  <strong>{user.name}</strong>
+                </Link>
               </p>
             </ProfileContent>
           </Profile>

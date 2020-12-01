@@ -55,9 +55,16 @@ export const ProfileContent = styled.div`
     color: #f4ede8;
     line-height: 24px;
 
+    > a {
+      text-decoration: none;
+      color: #ff9000;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
     > strong {
       font-weight: 500;
-      color: #ff9000;
       font-size: 18px;
     }
   }
@@ -68,6 +75,7 @@ export const Content = styled.main`
   display: flex;
   margin: 64px auto;
 `;
+
 export const Schedule = styled.div`
   margin-right: 120px;
   flex: 1;

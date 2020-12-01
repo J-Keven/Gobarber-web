@@ -18,6 +18,7 @@ interface AuthContextProps {
   user: UserProps;
   sigIn(credentil: CredentialsProps): Promise<void>;
   signOut(): void;
+  updateUser(data: UserProps): Promise<void>;
 }
 
 interface UserSate {
@@ -43,6 +44,15 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as UserSate;
   });
 
+  const updateUser = useCallback(
+    async (data: UserProps) => {
+      setDataUser({
+        token: dataUser.token,
+        user: data,
+      });
+    },
+    [dataUser.token],
+  );
   const sigIn = useCallback(async ({ email, password }: CredentialsProps) => {
     const { data } = await apiClient.post('login', {
       email,
@@ -68,7 +78,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: dataUser.user, sigIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: dataUser.user, updateUser, sigIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
