@@ -12,6 +12,7 @@ interface UserProps {
   email: string;
   avatar: string;
   avatar_url: string;
+  token: string;
 }
 
 interface AuthContextProps {
@@ -50,7 +51,10 @@ const AuthProvider: React.FC = ({ children }) => {
         token: dataUser.token,
         user: data,
       });
+
+      localStorage.setItem('@gobarber.user', JSON.stringify(data));
     },
+
     [dataUser.token],
   );
   const sigIn = useCallback(async ({ email, password }: CredentialsProps) => {
